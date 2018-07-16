@@ -19,7 +19,6 @@ class PagesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->strapRoutes();
         $this->strapPublishers();
         $this->strapViews();
         $this->strapMigrations();
@@ -33,14 +32,6 @@ class PagesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-    }
-
-    /**
-     * Bootstrap our Routes
-     */
-    protected function strapRoutes()
-    {
-        $this->loadRoutesFrom(self::PACKAGE_DIR . 'routes/web.php');
     }
 
     /**
