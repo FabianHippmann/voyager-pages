@@ -82,7 +82,7 @@ class PagesDataRowsTableSeeder extends Seeder
             $dataRow->fill([
                 'type'         => 'rich_text_box',
                 'display_name' => 'body',
-                'required'     => 1,
+                'required'     => 0,
                 'browse'       => 0,
                 'read'         => 1,
                 'edit'         => 1,
