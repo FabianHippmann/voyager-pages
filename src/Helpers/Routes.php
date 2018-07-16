@@ -13,7 +13,7 @@ class Routes
     /**
      * Dynamically register pages.
      */
-    public static function registerPageRoutes()
+    public static function registerPageRoutes(callable $callback = null)
     {
         // Prevents error before our migration has run
         if (!Schema::hasTable('pages')) {
@@ -30,13 +30,16 @@ class Routes
         if (class_exists('\Pvtl\VoyagerPageBlocks\Providers\PageBlocksServiceProvider')) {
             $pageController = '\Pvtl\VoyagerPageBlocks\Http\Controllers\PageController';
         }
-
         // Get all page slugs (note it's cached for 5mins)
         $pages = Cache::remember('page/slugs', 5, function () {
             return Page::all('slug');
         });
+        $path = Request::path();
+        if ($callback) {
+            $path = $callback();
+        }
+        $slug = $path === '/' ? 'home' : $path;
 
-        $slug = Request::path() === '/' ? 'home' : Request::path();
 
         // When the current URI is known to be a page slug, let it be a route
         if ($pages->contains('slug', $slug)) {
