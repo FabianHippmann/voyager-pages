@@ -3,9 +3,11 @@
 namespace Pvtl\VoyagerPages\Http\Controllers;
 
 use Pvtl\VoyagerPages\Page;
+use Illuminate\Http\Request;
+use Pvtl\VoyagerPages\Http\Controllers\Controller;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController;
 
-class PageController extends VoyagerBaseController
+class PageController extends Controller
 {
     /**
      * This is the module's view path that can be overriden
@@ -19,11 +21,12 @@ class PageController extends VoyagerBaseController
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getPage($slug = 'home')
+    public function getPage(Request $request, $slug = 'home')
     {
         $page = Page::withTranslation()->where('slug', '=', $slug)->firstOrFail();
-        return view("{$this->viewPath}::modules.pages.default", [
+
+        return $this->makeResponse($request, "{$this->viewPath}::modules.pages.default", [
             'page' => $page,
-        ]);
+        ], (new PageResource($post->load('authorId'))));
     }
 }
