@@ -13,7 +13,7 @@ class PivotalCreatePagesTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('pages')) {
+        if (! Schema::hasTable('pages')) {
             Schema::create('pages', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('author_id');
