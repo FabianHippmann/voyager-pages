@@ -21,8 +21,9 @@ class PageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getPage(Request $request, $slug = 'home')
+    public function getPage($slug = 'home')
     {
+        $request = request();
         $page = Page::withTranslation()->where('slug', '=', $slug)->firstOrFail();
 
         return $this->makeResponse($request, "{$this->viewPath}::modules.pages.default", [
